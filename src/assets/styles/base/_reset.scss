@@ -50,8 +50,14 @@ select {
   outline: none;
 }
 
-::-webkit-scrollbar       { width: 6px; }
-::-webkit-scrollbar-track { background: var(--color-bg); }
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-bg);
+}
+
 ::-webkit-scrollbar-thumb {
   background: var(--color-border-purple);
   border-radius: var(--radius-full);
