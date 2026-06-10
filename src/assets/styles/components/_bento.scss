@@ -18,7 +18,7 @@
         cursor: pointer;
 
         @media (min-width: $bp-mobile) {
-            min-height: auto;
+            min-height: unset;
 
             &--big {
                 grid-row: span 2;
