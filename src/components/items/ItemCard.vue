@@ -1,26 +1,28 @@
 <template>
-  <article class="game-card" :aria-label="game.title">
+  <article class="card" :aria-label="game.title">
 
-    <div class="game-card__thumb">
+    <div class="card__thumb">
       <img
         :src="game.thumbnail"
         :alt="game.title"
-        class="game-card__thumb-img"
+        class="card__thumb-bg"
       />
     </div>
 
-    <div class="game-card__info">
+   
+    <div class="card__body">
 
-      <div class="game-card__header">
-        <h2 class="game-card__title">{{ game.title }}</h2>
-        <span class="game-card__genre-badge">{{ game.genre }}</span>
+      <div class="card__header">
+        <h2 class="card__title">{{ game.title }}</h2>
       </div>
 
-      <p class="game-card__desc">{{ game.short_description }}</p>
+    
+      <p class="card__description">{{ game.short_description }}</p>
 
-      <div class="game-card__meta">
-        <span class="game-card__platform-tag">{{ game.platform }}</span>
-        <span class="game-card__free-tag">FREE</span>
+      <div class="card__meta">
+        <span class="badge badge--action">{{ game.genre }}</span>
+        <span class="badge badge--platform">{{ game.platform }}</span>
+        <span class="badge badge--free">FREE</span>
       </div>
 
     </div>
