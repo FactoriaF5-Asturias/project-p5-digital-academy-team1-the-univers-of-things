@@ -1,6 +1,8 @@
 <!-- Vista catalogo completo: busqueda, filtros y paginacion -->
 <template>
-  <main class="catalog-view">
+  <!-- ↓↓↓ NUEVO ↓↓↓ -->
+  <MainLayout>
+  <!-- ↑↑↑ NUEVO ↑↑↑ -->
 
     <section class="catalog-view__hero">
       <h1 class="catalog-view__title">El Catálogo</h1>
@@ -10,9 +12,8 @@
     </section>
 
     <section class="catalog-view__content">
-      <!-- BARRA DE BÚSQUEDA -->
-      <!-- Para forzar pantalla de carga, aplicar retardo artificial -->
-      
+      <!-- Aquí irá la barra de búsqueda -->
+
       <div v-if="isLoading" class="catalog-view__loading">
         Cargando juegos...
       </div>
@@ -28,18 +29,22 @@
             :game="game"
             />
       </div>
-      
-      <!-- PAGINACIÓN -->
+
+      <!-- Aquí irá la paginación -->
     </section>
 
-  </main>
-  <AppFooter />
+  <!-- ↓↓↓ NUEVO ↓↓↓ -->
+  </MainLayout>
+  <!-- ↑↑↑ NUEVO ↑↑↑ -->
 </template>
 
 <script setup>
 import { ref, onMounted } from 'vue';
 import ItemCard from '@/components/items/ItemCard.vue';
-import AppFooter from '@/components/layout/AppFooter.vue';
+import MainLayout from '@/layouts/MainLayout.vue';
+// ↓↓↓ ELIMINAR ↓↓↓
+// import AppFooter from '@/components/layout/AppFooter.vue';
+// ↑↑↑ ELIMINAR ↑↑↑
 import { getGames } from '@/services/games-api.js';
 
 const games = ref([])
@@ -48,7 +53,6 @@ const error = ref(null)
 
 onMounted(async () => {
   isLoading.value = true
-  //await new Promise(resolve => setTimeout(resolve, 3000)) // Añade demora de 3 segundos para comprobar pantalla de carga.
   try {
     games.value = await getGames()
   } catch (e) {
