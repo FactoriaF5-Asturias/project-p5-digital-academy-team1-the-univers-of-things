@@ -10,17 +10,26 @@
     </section>
 
     <section class="catalog-view__content">
-      <!-- BARRA DE BÚSQUEDA DESPUÉS DE LOGIN -->
+      <!-- BARRA DE BÚSQUEDA -->
+      <!-- Para forzar pantalla de carga, aplicar retardo artificial -->
+      
+      <div v-if="isLoading" class="catalog-view__loading">
+        Cargando juegos...
+      </div>
 
-      <div class="catalog-view__grid">  
+      <div v-else-if="error" class="catalog-view__error">
+        {{ error }}
+      </div>
+
+      <div v-else class="catalog-view__grid">
         <ItemCard
             v-for="(game, index) in games"
             :key="game.id ?? index"
             :game="game"
             />
       </div>
-
-      <!-- PAGINACIÓN PENDIENTE -->
+      
+      <!-- PAGINACIÓN -->
     </section>
 
   </main>
@@ -34,9 +43,19 @@ import AppFooter from '@/components/layout/AppFooter.vue';
 import { getGames } from '@/services/games-api.js';
 
 const games = ref([])
+const isLoading = ref(false)
+const error = ref(null)
 
 onMounted(async () => {
-  games.value = await getGames()
+  isLoading.value = true
+  //await new Promise(resolve => setTimeout(resolve, 3000)) // Añade demora de 3 segundos para comprobar pantalla de carga.
+  try {
+    games.value = await getGames()
+  } catch (e) {
+    error.value = 'Error al cargar los juegos. Inténtalo de nuevo más tarde.'
+  } finally {
+    isLoading.value = false
+  }
 })
 </script>
 
