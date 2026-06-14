@@ -26,11 +26,13 @@
     </section>
 
   </main>
+   <AppFooter />
 </template>
 
 <script setup>
 
 import ItemCard from '@/components/items/ItemCard.vue';
+import AppFooter from '@/components/layout/AppFooter.vue';
 
 const games= []
 
