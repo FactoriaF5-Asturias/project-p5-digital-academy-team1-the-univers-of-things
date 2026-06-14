@@ -34,8 +34,24 @@
     }
 
     &__grid {
-        display: grid;
-        gap: 14px;
-        margin-bottom: 2.5rem;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 14px;
+    margin-bottom: 2.5rem;
+
+    // Tablet
+    @media (min-width: $bp-tablet) {
+        grid-template-columns: repeat(2, 1fr);
     }
+
+    // Desktop
+    @media (min-width: $bp-desktop) {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    // Wide
+    @media (min-width: $bp-wide) {
+        grid-template-columns: repeat(5, 1fr);
+    }
+}
 }
