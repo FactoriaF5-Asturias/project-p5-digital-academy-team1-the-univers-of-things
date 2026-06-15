@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { ref, computed } from 'vue'
+import { ref, computed } from 'vue'  //Aquí, añado computed, que hace falta para const isAdmin e isUser.
 import { onAuthStateChanged } from 'firebase/auth'
 import { auth } from '@/api/firebase'
 import { logoutUser } from '@/services/auth-service'
