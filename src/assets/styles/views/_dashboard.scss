@@ -42,8 +42,21 @@
   top: 0;
   left: 0;
 
+  &__logo {
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--color-border);
+    display: flex;
+    justify-content: center;
+
+    a {
+      display: flex;
+      text-decoration: none;
+    }
+  }
+
   &__logo-img {
-    height: 32px;
+    height: 52px;
+    filter: drop-shadow(0 0 10px rgba(168, 85, 247, 0.6));
   }
 
   &__profile {
