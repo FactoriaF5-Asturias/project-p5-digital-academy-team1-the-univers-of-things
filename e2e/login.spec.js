@@ -18,4 +18,21 @@ test.describe('Login de usuario', () => {
     await expect(page).toHaveURL('/dashboard')
   })
 
+
+  // Test conforme ST-12 que comprueba proceso credenciales incorrectas.
+  
+  test('debe mostrar mensaje de error con credenciales incorrectas', async ({ page }) => {
+    await page.goto('/login')
+    await page.fill('#email', 'incorrecto@fps.io')
+    await page.fill('#password', 'passwordincorrecto')
+    await page.click('button[type="submit"]')
+
+    // 5.B. VERIFICACIÓN DE NO REDIRECCIÓN
+    await expect(page).toHaveURL('/login')
+
+    // 6.B. VERIFICACIÓN APARICIÓN MENSAJE DE ERROR.
+    await expect(page.locator('.login-form__error-general')).toBeVisible()
+    await expect(page.locator('.login-form__error-general')).toHaveText('Correo o contraseña incorrectos')
+  })
+
 })
