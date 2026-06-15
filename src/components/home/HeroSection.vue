@@ -67,6 +67,7 @@ import FeaturedGameWidget from '@/components/home/FeaturedGameWidget.vue'
 @use '@/assets/styles/base/variables' as *;
 
 .hero {
+    animation: fps-fade-in 0.6s ease both;
     padding: 2.5rem 1rem 2rem;
 
     @media (min-width: $bp-tablet) {
