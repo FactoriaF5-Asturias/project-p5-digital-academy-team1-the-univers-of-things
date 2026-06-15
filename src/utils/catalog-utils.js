@@ -1,7 +1,8 @@
 // Utilidades de filtrado y paginacion del catalogo
 export function filterByText(games, query) {
     if (!query) return games
+    const search = query.toLowerCase()
     return games.filter(game =>
-        game.title.toLowerCase().includes(query.toLowerCase())
+        game.title.toLowerCase().includes(search)
     )
 }
