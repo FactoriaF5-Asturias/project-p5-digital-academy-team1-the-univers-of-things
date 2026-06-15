@@ -21,7 +21,7 @@ const avatars = [1, 2, 3, 4, 5, 6, 7, 8]
             <div v-for="n in avatars" :key="n" class="admin-profile__avatar-option"></div>
           </div>
 
-          <button class="btn btn--cta">Subir desde Firebase Storage</button>
+          <button class="btn btn--cta admin-profile__btn-sm">Subir avatar</button>
         </div>
 
         <div class="admin-profile__right">
@@ -36,7 +36,7 @@ const avatars = [1, 2, 3, 4, 5, 6, 7, 8]
           <label class="admin-profile__label">Confirmar nueva contraseña</label>
           <input type="password" class="admin-profile__input" value="*********" />
 
-          <button class="btn btn--cta">Actualizar contraseña</button>
+          <button class="admin-profile__btn-update">Actualizar contraseña</button>
         </div>
       </div>
     </section>
