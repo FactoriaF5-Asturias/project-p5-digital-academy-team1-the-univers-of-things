@@ -1,14 +1,16 @@
-<!-- Layout privado: sidebar + header dashboard + slot + footer privado -->
+<!-- Layout privado: sidebar + header dashboard + slot -->
 <script setup>
 import { RouterLink } from 'vue-router'
+import AppAurora from '@/components/layout/AppAurora.vue'
 </script>
 
 <template>
+  <AppAurora />
   <div class="dashboard-layout">
     <aside class="dashboard-sidebar">
       <div class="dashboard-sidebar__logo">
         <RouterLink to="/">
-          <img src="@/assets/img/fps-logo.svg" alt="FPS" class="dashboard-sidebar__logo-img" />
+          <img src="@/assets/imgs/fps-logo.svg" alt="FPS" class="dashboard-sidebar__logo-img" />
         </RouterLink>
       </div>
 
@@ -38,6 +40,20 @@ import { RouterLink } from 'vue-router'
     </aside>
 
     <main class="dashboard-main">
+      <header class="dashboard-header">
+        <div class="dashboard-header__breadcrumb">
+          <RouterLink to="/" class="dashboard-header__brand">
+            <img src="@/assets/imgs/fps-logo.svg" alt="FPS" class="dashboard-header__logo" />
+            <span>FPS</span>
+          </RouterLink>
+          <span class="dashboard-header__sep">/</span>
+          <span class="dashboard-header__page">Dashboard Admin</span>
+        </div>
+        <div class="dashboard-header__user">
+          <span class="dashboard-header__name">AdminRoot</span>
+          <span class="dashboard-header__badge">ADMIN</span>
+        </div>
+      </header>
       <slot />
     </main>
   </div>

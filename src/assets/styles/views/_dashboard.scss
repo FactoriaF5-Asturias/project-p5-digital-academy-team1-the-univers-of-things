@@ -92,8 +92,68 @@
 .dashboard-main {
   margin-left: 190px;
   flex: 1;
-  padding: 2rem;
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.dashboard-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 2rem;
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-surface-high);
+
+  &__breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+  }
+
+  &__brand {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: var(--color-text);
+    text-decoration: none;
+    font-weight: 700;
+  }
+
+  &__logo { height: 22px; }
+
+  &__sep { color: var(--color-text-dim); }
+
+  &__page { color: var(--color-text-muted); }
+
+  &__user {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  &__name {
+    font-size: 0.85rem;
+    color: var(--color-text);
+    font-weight: 600;
+  }
+
+  &__badge {
+    font-size: 0.65rem;
+    font-family: $font-mono;
+    letter-spacing: 0.1em;
+    padding: 2px 8px;
+    border-radius: var(--radius-sm);
+    background: var(--color-primary);
+    color: white;
+  }
+}
+
+.dashboard-main > section {
+  padding: 2rem;
+  flex: 1;
 }
 
 // ── Tabla compartida ──
