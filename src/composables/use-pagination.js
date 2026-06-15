@@ -1,11 +1,14 @@
 // Composable: logica de paginacion reutilizable con puntos suspensivos
-import { computed } from 'vue'
+import { computed, toRef, isRef } from 'vue'
 
 export function usePagination(currentPage, totalPages) {
+    const currentPageRef = isRef(currentPage) ? currentPage : toRef(currentPage)
+    const totalPagesRef = isRef(totalPages) ? totalPages : toRef(totalPages)
+
     const visiblePages = computed(() => {
         const pages = []
-        const total = totalPages.value
-        const current = currentPage.value
+        const total = totalPagesRef.value
+        const current = currentPageRef.value
 
         if (total <= 7) {
             for (let i = 1; i <= total; i++) pages.push(i)
