@@ -1,6 +1,14 @@
+@use '@/assets/styles/base/variables' as *;
+
 .featured-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(1, 1fr);
   gap: 1.5rem;
   padding: 2rem;
+}
+
+@media (min-width: #{$bp-desktop}) {
+  .featured-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }

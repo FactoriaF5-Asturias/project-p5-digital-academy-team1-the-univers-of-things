@@ -13,7 +13,9 @@ import FeaturedMonthly from '@/components/featured/FeaturedMonthly.vue'
 
     </MainLayout>
     </template>
+<style lang="scss">
 
+</style>
 
 
 
