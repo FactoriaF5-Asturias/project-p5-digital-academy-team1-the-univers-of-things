@@ -7,7 +7,8 @@
         <nav class="header__nav" aria-label="Navegacion principal">
 
             <RouterLink to="/" class="header__logo" aria-label="FPS — Ir a inicio">
-                <span class="header__logo-icon" aria-hidden="true">FPS</span>
+                <img src="/src/assets/imgs/fps-logo.svg" alt="FPS logo" width="36" height="36"
+                    class="header__logo-icon" />
                 <span class="header__logo-text">FPS</span>
             </RouterLink>
 
@@ -78,22 +79,12 @@
     &__logo-icon {
         width: 32px;
         height: 32px;
-        background: linear-gradient(135deg, #7c3aed, #06b6d4);
         border-radius: 8px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-family: $font-display;
-        font-weight: 800;
-        font-size: 12px;
-        color: white;
-        letter-spacing: -1px;
         flex-shrink: 0;
 
         @media (min-width: $bp-tablet) {
             width: 36px;
             height: 36px;
-            font-size: 13px;
         }
     }
 
