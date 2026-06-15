@@ -6,6 +6,7 @@ import { loginUser } from '@/services/auth-service'
 import { useAuthStore } from '@/stores/auth'
 
 const router = useRouter()
+const authStore = useAuthStore()
 
 const form = reactive({
   email: '',
@@ -57,8 +58,10 @@ async function handleSubmit() {
   isLoading.value = true
 
   try {
-    console.log('Login pendiente de auth-service:', form.email)
-    await router.push('/dashboard')
+     const userData = await loginUser(form.email, form.password)
+    authStore.setUser(userData)
+    await router.push(userData.role === 'admin' ? '/admin' : '/dashboard')
+    
   } catch (error) {
     if (error.code === 'auth/invalid-credential') {
       errors.general = 'Correo o contraseña incorrectos'
