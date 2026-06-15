@@ -1,35 +1,17 @@
 <script setup>
 import ItemCard from "@/components/items/ItemCard.vue";
+import { getGames } from '@/services/games-api.js'
+import { ref, onMounted} from 'vue'
 
-const games = [
-  {
-    id: 1,
-    title: "Juego 1",
-    short_description: "Descripción",
-    thumbnail: "",
-    genre: "Acción",
-    platform: "PC",
-    featured: true,
-  },
-  {
-    id: 2,
-    title: "Juego 2",
-    short_description: "Descripción",
-    thumbnail: "",
-    genre: "RPG",
-    platform: "PS5",
-    featured: true,
-  },
-  {
-    id: 3,
-    title: "Juego 3",
-    short_description: "Descripción",
-    thumbnail: "",
-    genre: "FPS",
-    platform: "Xbox",
-    featured: true,
-  },
-];
+const games = ref([]);
+
+onMounted(async () => {
+    try {
+        games.value = (await getGames()).slice(0, 6)
+    } catch (e) {
+        console.error(e)
+    }
+})
 </script>
 
 <template>
