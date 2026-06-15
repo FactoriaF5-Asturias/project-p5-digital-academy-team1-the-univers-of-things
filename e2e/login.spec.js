@@ -1,5 +1,8 @@
 import { test, expect } from '@playwright/test'
 
+const TEST_EMAIL = 'prueba123@gmail.com'
+const TEST_PASSWORD = 'patatas123'
+
 test.describe('Login de usuario', () => {
 
   // Test conforme ST-11 que comprueba las credenciales válidas de usuario.
@@ -10,8 +13,8 @@ test.describe('Login de usuario', () => {
     // 2. COMPROBACIÓN DE FORMULARIO VISIBLE
     await expect(page.locator('h1, .login-view__logo-text')).toBeVisible()
     // 3. CUMPLIMENTACIÓN DEL FORMULARIO
-    await page.fill('#email', 'customer@fps.io')
-    await page.fill('#password', 'password123')
+    await page.fill('#email', TEST_EMAIL)
+    await page.fill('#password', TEST_PASSWORD)
     // 4. CLICK EN LOGIN
     await page.click('button[type="submit"]')
     // 5. VERIFICACIÓN ENVÍO A DASHBOARD DE CUSTOMER
