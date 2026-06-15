@@ -13,42 +13,18 @@
           <span class="login-view__subtitle">Accede a tu cuenta</span>
         </div>
 
-        <!-- FORMULARIO -->
-        <form class="login-view__form">
+        <!-- ↓↓↓ NUEVO ↓↓↓ -->
+        <!-- Formulario -->
+        <LoginForm />
+        <!-- ↑↑↑ NUEVO ↑↑↑ -->
 
-          <div class="login-view__field">
-            <label for="email" class="login-view__label">Correo electrónico</label>
-            <input
-              id="email"
-              type="email"
-              class="login-view__input"
-              placeholder="tu@email.com"
-            />
-          </div>
-
-          <div class="login-view__field">
-            <label for="password" class="login-view__label">Contraseña</label>
-            <input
-              id="password"
-              type="password"
-              class="login-view__input"
-              placeholder="••••••••••"
-            />
-          </div>
-
-          <button type="submit" class="login-view__btn-primary">
-            Iniciar sesión
-          </button>
-
-        </form>
-
-        <!-- ENLACE A REGISTRO -->
+        <!-- Enlace a registro -->
         <div class="login-view__register">
           ¿No tienes cuenta?
           <RouterLink to="/register">Regístrate</RouterLink>
         </div>
 
-        <!-- ACCESO PARA ADMINISTRADOR -->
+        <!-- Acceso demo admin -->
         <div class="login-view__demo">
           <p class="login-view__demo-title">Acceso de demostración</p>
           <button type="button" class="login-view__btn-admin">
@@ -64,6 +40,9 @@
 
 <script setup>
 import MainLayout from '@/layouts/MainLayout.vue'
+// ↓↓↓ NUEVO ↓↓↓
+import LoginForm from '@/components/auth/LoginForm.vue'
+// ↑↑↑ NUEVO ↑↑↑
 </script>
 
 <style scoped>
