@@ -6,3 +6,8 @@ export function filterByText(games, query) {
         game.title.toLowerCase().includes(search)
     )
 }
+
+export function filterByGenre(games, genre) {
+    if (!genre) return games
+    return games.filter(game => game.genre.toLowerCase() === genre.toLowerCase())
+}
