@@ -2,14 +2,21 @@ import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import { onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from 'firebase/auth'
 import { auth } from '../api/firebase.js'
-import { createUserProfile } from '../api/user.service.js'
+import { createUserProfile, getUserProfile } from '../api/user.service.js'
 export const useAuthStore = defineStore('auth', () => {
     const user = ref(null)
+    const profile = ref(null)
     const loading = ref(true)
 
-    onAuthStateChanged(auth, (firebaseUser) => {
+    onAuthStateChanged(auth, async (firebaseUser) => {
 
         user.value = firebaseUser
+        if (firebaseUser) {
+            profile.value = await getUserProfile(firebaseUser.uid)  // ← leemos Firestore
+        } else {
+            profile.value = null
+        }
+
         loading.value = false
     })
 
@@ -18,13 +25,13 @@ export const useAuthStore = defineStore('auth', () => {
         const result = await createUserWithEmailAndPassword(auth, email, password)
         await createUserProfile(result.user.uid, email, username)
     }
-    async function login(email, password){
+    async function login(email, password) {
 
         await signInWithEmailAndPassword(auth, email, password)
     }
-    async function logout(){
+    async function logout() {
         await signOut(auth)
-    } 
-    return { user, loading, register, login, logout }
+    }
+    return { user, profile, loading, register, login, logout }
 })
 
