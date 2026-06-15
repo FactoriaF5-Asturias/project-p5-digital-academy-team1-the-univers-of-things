@@ -1,6 +1,6 @@
 <!-- Vista favoritos de usuarios -->
 <script setup>
-import DashboardLayout from '@/layouts/AdminLayout.vue'
+import AdminLayout from '@/layouts/AdminLayout.vue'
 
 const favorites = [
   { id: 1, user: 'NeonExplorer_01', game: 'Quantum Strike', genre: 'SHOOTER', description: 'Mi shooter favorito. Los gráficos son brutales.', rating: 4, date: '2026-06-01' },
@@ -11,7 +11,7 @@ const favorites = [
 </script>
 
 <template>
-  <DashboardLayout>
+  <AdminLayout>
     <section class="admin-favorites">
       <h1 class="admin-favorites__title">Favoritos de usuarios</h1>
 
@@ -47,5 +47,5 @@ const favorites = [
         </table>
       </div>
     </section>
-  </DashboardLayout>
+  </AdminLayout>
 </template>
