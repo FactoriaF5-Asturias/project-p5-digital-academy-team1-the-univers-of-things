@@ -24,7 +24,7 @@ describe('AppHeader', () => {
         setActivePinia(createPinia())
     })
 
-    test('ST13 — muestra botones de login y registro cuando no hay sesion', () => {
+    test('muestra botones de login y registro cuando no hay sesion', () => {
         useAuthStore.mockReturnValue({
             user: null,
             profile: null,
@@ -38,5 +38,21 @@ describe('AppHeader', () => {
         expect(wrapper.text()).toContain('Iniciar sesión')
         expect(wrapper.text()).toContain('Registrarse')
         expect(wrapper.text()).not.toContain('Cerrar sesión')
+    })
+
+    test('muestra nombre de usuario y cerrar sesion cuando hay sesion', () => {
+        useAuthStore.mockReturnValue({
+            user: { email: 'jenny@test.com' },
+            profile: { username: 'Jenny' },
+            logout: vi.fn()
+        })
+
+        const wrapper = mount(AppHeader, {
+            global: { plugins: [router] }
+        })
+
+        expect(wrapper.text()).toContain('Jenny')
+        expect(wrapper.text()).toContain('Cerrar sesión')
+        expect(wrapper.text()).not.toContain('Iniciar sesión')
     })
 })
