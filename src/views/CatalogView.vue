@@ -61,6 +61,8 @@ const games = ref([])
 const isLoading = ref(false)
 const error = ref(null)
 const searchText = ref('')
+const selectedGenre = ref('')
+const selectedPlatform = ref('')
 
 const filteredGames = computed(() => {
   if (!searchText.value) return games.value
