@@ -8,6 +8,22 @@
     margin-bottom: var(--space-6);
   }
 
+  &__search {
+    width: 100%;
+    padding: var(--space-3) var(--space-4);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg, 12px);
+    color: var(--color-text);
+    font-size: 0.875rem;
+    margin-bottom: var(--space-4);
+    outline: none;
+
+    &:focus {
+      border-color: var(--color-primary);
+    }
+  }
+
   &__table {
     width: 100%;
     border-collapse: collapse;
@@ -82,7 +98,6 @@
     }
   }
 
-  // Mobile first
   @media (max-width: 640px) {
     padding: var(--space-4);
 
@@ -93,4 +108,12 @@
       }
     }
   }
+}
+
+.list-enter-active, .list-leave-active {
+  transition: all 0.3s ease;
+}
+.list-enter-from, .list-leave-to {
+  opacity: 0;
+  transform: translateY(-10px);
 }
