@@ -58,12 +58,14 @@ const filteredUsers = computed(() =>
               <button
                 v-if="user.status !== 'restricted'"
                 class="user-management__btn"
+                @click="adminStore.toggleUserAccess(user.uid, user.status)"
               >
                 RESTRINGIR
               </button>
               <button
                 v-else
                 class="user-management__btn user-management__btn--allow"
+                @click="adminStore.toggleUserAccess(user.uid, user.status)"
               >
                 PERMITIR
               </button>

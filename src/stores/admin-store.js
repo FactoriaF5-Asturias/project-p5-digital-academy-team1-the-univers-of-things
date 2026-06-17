@@ -1,7 +1,9 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
-import { collection, getDocs } from 'firebase/firestore'
+import { collection, getDocs, doc, updateDoc } from 'firebase/firestore'
 import { db } from '@/api/firebase'
+import { getNextStatus } from '@/utils/user-access'
+
 
 export const useAdminStore = defineStore('admin', () => {
     const usersList = ref([])
@@ -11,5 +13,12 @@ export const useAdminStore = defineStore('admin', () => {
         usersList.value = snapshot.docs.map(doc => doc.data())
     }
 
-    return { usersList, fetchAllUsers }
+    async function toggleUserAccess(userId, currentStatus) {
+        const newStatus = getNextStatus(currentStatus)
+        await updateDoc(doc(db, 'users', userId), { status: newStatus })
+        const user = usersList.value.find(u => u.uid === userId)
+        if (user) user.status = newStatus
+    }
+
+    return { usersList, fetchAllUsers, toggleUserAccess }
 })
