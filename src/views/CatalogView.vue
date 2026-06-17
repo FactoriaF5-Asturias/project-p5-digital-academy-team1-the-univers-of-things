@@ -54,6 +54,8 @@ import ItemCard from '@/components/items/ItemCard.vue';
 import MainLayout from '@/layouts/MainLayout.vue';
 import { getGames } from '@/services/games-api.js';
 import SearchBar from '@/components/catalog/SearchBar.vue';
+import FilterControls from '@/components/catalog/FilterControls.vue';
+import { filterByText, filterByGenre } from '@/utils/catalog-utils';
 
 const games = ref([])
 const isLoading = ref(false)
