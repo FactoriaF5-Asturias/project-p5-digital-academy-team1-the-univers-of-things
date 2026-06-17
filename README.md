@@ -151,7 +151,7 @@ destacados → Logout
 
 ### Wireframes
 
-🔗 Ver en Figma → _en proceso_
+🔗 [Ver wireframes en Figma](https://www.figma.com/design/KOy6x2jQqyPm7oP9JWWWVu/Sin-t%C3%ADtulo?node-id=0-1&t=yFJ1Tr28XLDRpAOh-1)
 
 ### Prototipo
 
@@ -159,14 +159,14 @@ El prototipo completo de la aplicación está desarrollado para **todas las vist
 
 | Vista | Descripción | Captura |
 | :----- | :---------- | :------: |
-| **Homepage** | Hero con "Juego del mes", sección bento de destacados y catálogo (2 filas × 5 columnas) | _en proceso_ |
-| **Catálogo** | 20 juegos en grid de 5 columnas con búsqueda y filtros | _en proceso_ |
-| **Destacados** | Card hero principal + grid de 9 destacados | _en proceso_ |
-| **Detalle de juego** | Banner, descripción, stats (jugadores, valoración), capturas y juegos similares | _en proceso_ |
-| **Login** | Formulario de acceso + botón de demo admin | _en proceso_ |
-| **Register** | Formulario de registro | _en proceso_ |
-| **Dashboard de usuario** | Perfil (avatar picker + Firebase + cambio de contraseña) + Mis Favoritos (CRUD + rating) | _en proceso_ |
-| **Dashboard de admin** | Gestión de usuarios + Favoritos globales + Perfil + Destacados y Juego del mes | _en proceso_ |
+| **Homepage** | Hero con "Juego del mes", sección bento de destacados y catálogo (2 filas × 5 columnas) | ![Prototipo homepage](src/assets/imgs/screenshots/prototype/homepage.png) |
+| **Catálogo** | 20 juegos en grid de 5 columnas con búsqueda y filtros | ![Prototipo catálogo](src/assets/imgs/screenshots/prototype/catalog.png) |
+| **Destacados** | Card hero principal + grid de 9 destacados | ![Prototipo destacados](src/assets/imgs/screenshots/prototype/featured.png) |
+| **Detalle de juego** | Banner, descripción, stats (jugadores, valoración), capturas y juegos similares | ![Prototipo detalle de juego](src/assets/imgs/screenshots/prototype/detail.png) |
+| **Login** | Formulario de acceso + botón de demo admin | ![Prototipo login](src/assets/imgs/screenshots/prototype/login.png) |
+| **Register** | Formulario de registro | ![Prototipo registro](src/assets/imgs/screenshots/prototype/register.png) |
+| **Dashboard de usuario** | Perfil (avatar picker + Firebase + cambio de contraseña) + Mis Favoritos (CRUD + rating) | ![Prototipo dashboard usuario](src/assets/imgs/screenshots/prototype/user-dashboard.png) |
+| **Dashboard de admin** | Gestión de usuarios + Favoritos globales + Perfil + Destacados y Juego del mes | ![Prototipo dashboard admin](src/assets/imgs/screenshots/prototype/admin-dashboard.png) |
 
 ---
 
