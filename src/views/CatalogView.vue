@@ -11,7 +11,7 @@
     </section>
 
     <section class="catalog-view__content">
-      
+
       <SearchBar v-model="searchText"/>
 
       <div v-if="isLoading" class="catalog-view__loading">
@@ -24,7 +24,7 @@
 
       <div v-else class="catalog-view__grid">
         <ItemCard
-            v-for="(game, index) in games"
+            v-for="(game, index) in filteredGames"
             :key="game.id ?? index"
             :game="game"
             />
@@ -33,23 +33,27 @@
       <!-- Aquí irá la paginación -->
     </section>
 
-  <!-- ↓↓↓ NUEVO ↓↓↓ -->
-  </MainLayout>
-  <!-- ↑↑↑ NUEVO ↑↑↑ -->
+   </MainLayout>
 </template>
 
 <script setup>
 import { ref, onMounted } from 'vue';
 import ItemCard from '@/components/items/ItemCard.vue';
 import MainLayout from '@/layouts/MainLayout.vue';
-// ↓↓↓ ELIMINAR ↓↓↓
-// import AppFooter from '@/components/layout/AppFooter.vue';
-// ↑↑↑ ELIMINAR ↑↑↑
 import { getGames } from '@/services/games-api.js';
+import SearchBar from '@/components/catalog/SearchBar.vue';
 
 const games = ref([])
 const isLoading = ref(false)
 const error = ref(null)
+const searchText = ref('')
+
+const filteredGames = computed(() => {
+  if (!searchText.value) return games.value
+  return games.value.filter(game =>
+    game.title.toLowerCase().includes(searchText.value.toLowerCase())
+  )
+})
 
 onMounted(async () => {
   isLoading.value = true
