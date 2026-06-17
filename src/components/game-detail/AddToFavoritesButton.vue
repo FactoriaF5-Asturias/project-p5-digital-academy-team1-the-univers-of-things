@@ -18,8 +18,18 @@ const favoritesStore = useFavoritesStore()
 const isAuthenticated = computed(() => authStore.isAuthenticated)
 const isFavorite = computed(() => favoritesStore.isFavorite(props.game.id))
 
-// Estado para mostrar el mensaje temporal de confirmación (SC48, ST05)
 const showSuccessMessage = ref(false)
+
+// 🔵 REFACTOR: extraída la lógica del mensaje temporal en una función
+// reutilizable, en vez de repetir el patrón ref + setTimeout inline
+const SUCCESS_MESSAGE_DURATION_MS = 2500
+
+function showTemporarySuccessMessage() {
+  showSuccessMessage.value = true
+  setTimeout(() => {
+    showSuccessMessage.value = false
+  }, SUCCESS_MESSAGE_DURATION_MS)
+}
 
 function handleClick() {
   if (!isAuthenticated.value) {
@@ -29,12 +39,7 @@ function handleClick() {
 
   if (!isFavorite.value) {
     favoritesStore.addToFavorites(props.game)
-
-    // Mostramos el mensaje de éxito durante 2.5 segundos y luego se oculta solo
-    showSuccessMessage.value = true
-    setTimeout(() => {
-      showSuccessMessage.value = false
-    }, 2500)
+    showTemporarySuccessMessage()
   }
 }
 </script>
