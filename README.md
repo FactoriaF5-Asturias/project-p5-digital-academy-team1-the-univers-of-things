@@ -794,7 +794,7 @@ Seguimos el ciclo **🔴 Red → 🟢 Green → 🔵 Refactor** por cada funció
 
 | Vitest | Playwright |
 | :-----: | :--------: |
-| _captura_ | _captura_ |
+| ![Resultados vitest](src/assets/imgs/screenshots/tests/vitest.png) | ![Resultados playwright](src/assets/imgs/screenshots/tests/playwright.png) |
 
 _En proceso para sprint 2 (vistas de administración avanzadas y lógica de favoritos en Firebase)._
 
@@ -829,7 +829,7 @@ _En proceso para sprint 2 (vistas de administración avanzadas y lógica de favo
 
 ---
 
-**[Iulian Timofei](https://github.com/iuliantim)**
+**[Iulian Timofei](https://github.com/iulian640)**
 
 **[Nieves Durán López](https://github.com/duran-ni)**
 
