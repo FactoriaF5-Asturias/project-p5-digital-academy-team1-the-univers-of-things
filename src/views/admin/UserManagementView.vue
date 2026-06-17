@@ -1,21 +1,29 @@
 <!-- Vista admin: gestión de usuarios -->
-
 <script setup>
 import AdminLayout from "@/layouts/AdminLayout.vue";
 import { useAdminStore } from "@/stores/admin-store";
-import { onMounted, ref } from "vue";
+import { onMounted, ref, computed } from "vue";
+
 const adminStore = useAdminStore();
 onMounted(async () => {
   await adminStore.fetchAllUsers();
 });
-const searchQuery = ref ('')
+
+const searchQuery = ref("");
+
+const filteredUsers = computed(() => {
+  return adminStore.usersList.filter((user) =>
+    user.username?.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
+    user.email?.toLowerCase().includes(searchQuery.value.toLowerCase())
+  );
+});
 </script>
 
 <template>
   <AdminLayout>
     <section class="user-management">
       <h1 class="user-management__title">Gestión de Usuarios</h1>
-      <input v-model="searchQuery"/>
+      <input v-model="searchQuery" />
       <table class="user-management__table">
         <thead>
           <tr>
@@ -27,7 +35,7 @@ const searchQuery = ref ('')
           </tr>
         </thead>
         <tbody>
-          <tr v-for="user in adminStore.usersList" :key="user.id">
+          <tr v-for="user in filteredUsers" :key="user.id">
             <td>img</td>
             <td>{{ user.username }}</td>
             <td>{{ user.email }}</td>
