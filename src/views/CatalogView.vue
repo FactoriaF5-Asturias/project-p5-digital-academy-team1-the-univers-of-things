@@ -65,11 +65,17 @@ const selectedGenre = ref('')
 const selectedPlatform = ref('')
 
 const filteredGames = computed(() => {
-  if (!searchText.value) return games.value
-  return games.value.filter(game =>
-    game.title.toLowerCase().includes(searchText.value.toLowerCase())
-  )
+  let result = filterByText(games.value, searchText.value)
+  result = filterByGenre(result, selectedGenre.value)
+  if (selectedPlatform.value) {
+    result = result.filter(game =>
+      game.platform.toLowerCase().includes(selectedPlatform.value.toLowerCase())
+    )
+  }
+  return result
   })
+
+
   const genres = computed(() => {
   const allGenres = games.value.map(game => game.genre)
   return [...new Set(allGenres)].sort()
