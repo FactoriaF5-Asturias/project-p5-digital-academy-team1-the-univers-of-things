@@ -16,7 +16,7 @@ const monthlySuggestions = computed(() =>
     : featuredStore.catalog.filter(g => g.title.toLowerCase().includes(monthlyQuery.value.toLowerCase())).slice(0, 6)
 )
 
-function selectMonthly(game) {
+async function selectMonthly(game) {
   await featuredStore.selectMonthly(game)
   monthlyQuery.value = game.title
   showMonthlySuggestions.value = false
@@ -45,7 +45,7 @@ async function addActive(game) {
   showActiveSuggestions.value = false
 }
 
-function removeActive(game) {
+async function removeActive(game) {
   await featuredStore.removeFeatured(game)
 }
 </script>
