@@ -2,29 +2,19 @@
 <script setup>
 import AdminLayout from '@/layouts/AdminLayout.vue'
 import { ref, computed, onMounted } from 'vue'
-import { getFeaturedConfig, setMonthlyGame, addFeaturedGame, removeFeaturedGame } from '@/api/featured.service.js'
-
-// Mock de catálogo (en producción vendrá de Firestore/API)
-const catalog = [
-  { id: 'quantum-strike', title: 'Quantum Strike' },
-  { id: 'neon-odyssey', title: 'Neon Odyssey' },
-  { id: 'void-protocol', title: 'Void Protocol' },
-  { id: 'inferno-rush', title: 'Inferno Rush' },
-  { id: 'cyber-siege', title: 'Cyber Siege' },
-  { id: 'stellar-drift', title: 'Stellar Drift' },
-  { id: 'pulse-arena', title: 'Pulse Arena' },
-  { id: 'dark-circuit', title: 'Dark Circuit' },
-]
-
+import { useFeaturedStore } from '@/stores/featured-store.js' 
 // ── Juego del mes ──
+const featuredStore = useFeaturedStore()
 const monthlyQuery = ref('')
-const monthlyGame = ref(null)
+const monthlyGame = featuredStore.gameOfTheMonth
 const showMonthlySuggestions = ref(false)
+
+onMounted(async () => await featuredStore.fetchAll())
 
 const monthlySuggestions = computed(() =>
   monthlyQuery.value.length < 1
     ? []
-    : catalog.filter(g => g.title.toLowerCase().includes(monthlyQuery.value.toLowerCase())).slice(0, 6)
+    : featuredStore.catalog.filter(g => g.title.toLowerCase().includes(monthlyQuery.value.toLowerCase())).slice(0, 6)
 )
 
 function selectMonthly(game) {
@@ -35,16 +25,14 @@ function selectMonthly(game) {
 
 // ── Juegos activos ──
 const activeQuery = ref('')
-const activeGames = ref([
-  { id: 'quantum-strike', title: 'Quantum Strike' },
-  { id: 'neon-odyssey', title: 'Neon Odyssey' },
-])
+const activeGames = featuredStore.featuredList
+
 const showActiveSuggestions = ref(false)
 
 const activeSuggestions = computed(() =>
   activeQuery.value.length < 1
     ? []
-    : catalog
+    : featuredStore.catalog
         .filter(g =>
           g.title.toLowerCase().includes(activeQuery.value.toLowerCase()) &&
           !activeGames.value.find(a => a.id === g.id)
