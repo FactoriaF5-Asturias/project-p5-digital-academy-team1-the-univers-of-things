@@ -22,15 +22,6 @@
        @update:selectedPlatform="selectedPlatform = $event"
        />
 
-      <FilterControls
-        :genres="genres"
-        :platforms="platforms"
-        :selected-genre="selectedGenre"
-        :selected-platform="selectedPlatform"
-        @update:selectedGenre="selectedGenre = $event"
-        @update:selectedPlatform="selectedPlatform = $event"
-      />
-
       <div v-if="isLoading" class="catalog-view__loading">
         Cargando juegos...
       </div>
