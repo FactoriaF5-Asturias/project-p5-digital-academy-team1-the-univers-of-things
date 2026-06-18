@@ -120,7 +120,7 @@ async function removeActive(game) {
           >
             <div class="admin-featured__active-thumb"></div>
             <p class="admin-featured__active-title">{{ game.title }}</p>
-            <button class="admin-featured__remove" @click="removeActive(game.id)">QUITAR</button>
+            <button class="admin-featured__remove" @click="removeActive(game)">QUITAR</button>
           </div>
         </div>
       </div>
