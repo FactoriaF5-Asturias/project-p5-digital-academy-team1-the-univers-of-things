@@ -9,6 +9,9 @@ const monthlyQuery = ref('')
 const monthlyGame = computed(() => featuredStore.gameOfTheMonth)
 const showMonthlySuggestions = ref(false)
 onMounted(async () => await featuredStore.fetchAll())
+const featuredFull = computed(() => featuredStore.featuredList.length >= 6)
+
+
 
 const monthlySuggestions = computed(() =>
   monthlyQuery.value.length < 1
@@ -102,7 +105,7 @@ async function removeActive(game) {
             placeholder="Buscar juego para añadir..."
             class="admin-featured__search"
             @focus="showActiveSuggestions = true"
-            
+            :disabled="featuredFull"
           />
           <ul v-if="showActiveSuggestions && activeSuggestions.length" class="admin-featured__suggestions">
             <li
@@ -113,14 +116,14 @@ async function removeActive(game) {
             >{{ g.title }}</li>
           </ul>
         </div>
-
+        <p v-if="featuredFull">Máx. 6 juegos destacados</p>
         <div class="admin-featured__active-list">
           <div
             v-for="game in activeGames"
             :key="game.id"
             class="admin-featured__active-card"
           >
-            <img :src="game.thumbnail" :alt="monthlyGame.title" class ="admin-featured__active-thumb"/>
+            <img :src="game.thumbnail" :alt="game.title" class ="admin-featured__active-thumb"/>
             <p class="admin-featured__active-title">{{ game.title }}</p>
             <button class="admin-featured__remove" @click="removeActive(game)">QUITAR</button>
           </div>

@@ -19,6 +19,7 @@ export const useFeaturedStore = defineStore('featured', () => {
     }
 
     async function addFeatured(game) {
+        if (featuredList.value.length >= 6) return
         await addFeaturedGame(game.id)
         featuredList.value.push(game)
     }
