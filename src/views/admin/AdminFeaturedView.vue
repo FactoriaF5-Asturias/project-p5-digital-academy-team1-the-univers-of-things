@@ -8,7 +8,6 @@ const featuredStore = useFeaturedStore()
 const monthlyQuery = ref('')
 const monthlyGame = featuredStore.gameOfTheMonth
 const showMonthlySuggestions = ref(false)
-
 onMounted(async () => await featuredStore.fetchAll())
 
 const monthlySuggestions = computed(() =>
@@ -41,7 +40,7 @@ const activeSuggestions = computed(() =>
 )
 
 function addActive(game) {
-  activeGames.value.push(game)
+  await featuredStore.addFeatured(game)
   activeQuery.value = ''
   showActiveSuggestions.value = false
 }
