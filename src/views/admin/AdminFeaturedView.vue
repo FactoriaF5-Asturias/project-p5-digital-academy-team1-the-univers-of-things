@@ -6,7 +6,7 @@ import { useFeaturedStore } from '@/stores/featured-store.js'
 // ── Juego del mes ──
 const featuredStore = useFeaturedStore()
 const monthlyQuery = ref('')
-const monthlyGame = featuredStore.gameOfTheMonth
+const monthlyGame = computed(() => featuredStore.gameOfTheMonth)
 const showMonthlySuggestions = ref(false)
 onMounted(async () => await featuredStore.fetchAll())
 
@@ -18,13 +18,13 @@ const monthlySuggestions = computed(() =>
 
 async function selectMonthly(game) {
   await featuredStore.selectMonthly(game)
-  monthlyQuery.value = game.title
+  monthlyQuery.value = game?.title ?? ''
   showMonthlySuggestions.value = false
 }
 
 // ── Juegos activos ──
 const activeQuery = ref('')
-const activeGames = featuredStore.featuredList
+const activeGames = computed(() => featuredStore.featuredList)
 
 const showActiveSuggestions = ref(false)
 
@@ -34,7 +34,7 @@ const activeSuggestions = computed(() =>
     : featuredStore.catalog
         .filter(g =>
           g.title.toLowerCase().includes(activeQuery.value.toLowerCase()) &&
-          !activeGames.value.find(a => a.id === g.id)
+          !activeGames.value?.find(a => a.id === g.id)
         )
         .slice(0, 6)
 )
@@ -44,6 +44,9 @@ async function addActive(game) {
   activeQuery.value = ''
   showActiveSuggestions.value = false
 }
+
+function hideMonthly() { setTimeout(() => showMonthlySuggestions.value = false, 150) }
+function hideActive() { setTimeout(() => showActiveSuggestions.value = false, 150) }
 
 async function removeActive(game) {
   await featuredStore.removeFeatured(game)
@@ -60,28 +63,27 @@ async function removeActive(game) {
         <span class="section-label">Juego del mes</span>
         <p class="admin-featured__hint">Busca el juego que aparecerá destacado en portada.</p>
 
-        <div class="admin-featured__search-wrap">
+        <div class="admin-featured__search-wrap" @focusout="hideMonthly">
           <input
             v-model="monthlyQuery"
             type="search"
             placeholder="Buscar juego..."
             class="admin-featured__search"
             @focus="showMonthlySuggestions = true"
-            @blur="setTimeout(() => showMonthlySuggestions = false, 150)"
           />
           <ul v-if="showMonthlySuggestions && monthlySuggestions.length" class="admin-featured__suggestions">
             <li
               v-for="g in monthlySuggestions"
               :key="g.id"
               class="admin-featured__suggestion"
-              @mousedown="selectMonthly(g)"
+              @click="selectMonthly(g)"
             >{{ g.title }}</li>
           </ul>
         </div>
 
         <div v-if="monthlyGame" class="admin-featured__active-list">
           <div class="admin-featured__active-card">
-            <div class="admin-featured__active-thumb"></div>
+            <img :src="monthlyGame.thumbnail" :alt="monthlyGame.title" class ="admin-featured__active-thumb"/>
             <p class="admin-featured__active-title">{{ monthlyGame.title }}</p>
             <button class="admin-featured__remove" @click="featuredStore.selectMonthly(null); monthlyQuery = ''">QUITAR</button>
           </div>
@@ -93,21 +95,21 @@ async function removeActive(game) {
         <span class="section-label">Juegos activos destacados</span>
         <p class="admin-featured__hint">Busca y añade juegos visibles en la sección de destacados.</p>
 
-        <div class="admin-featured__search-wrap">
+        <div class="admin-featured__search-wrap" @focusout="hideActive">
           <input
             v-model="activeQuery"
             type="search"
             placeholder="Buscar juego para añadir..."
             class="admin-featured__search"
             @focus="showActiveSuggestions = true"
-            @blur="setTimeout(() => showActiveSuggestions = false, 150)"
+            
           />
           <ul v-if="showActiveSuggestions && activeSuggestions.length" class="admin-featured__suggestions">
             <li
               v-for="g in activeSuggestions"
               :key="g.id"
               class="admin-featured__suggestion"
-              @mousedown="addActive(g)"
+              @click="addActive(g)"
             >{{ g.title }}</li>
           </ul>
         </div>
@@ -118,7 +120,7 @@ async function removeActive(game) {
             :key="game.id"
             class="admin-featured__active-card"
           >
-            <div class="admin-featured__active-thumb"></div>
+            <img :src="game.thumbnail" :alt="monthlyGame.title" class ="admin-featured__active-thumb"/>
             <p class="admin-featured__active-title">{{ game.title }}</p>
             <button class="admin-featured__remove" @click="removeActive(game)">QUITAR</button>
           </div>
