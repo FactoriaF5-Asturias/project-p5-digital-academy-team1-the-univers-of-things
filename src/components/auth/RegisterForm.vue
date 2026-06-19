@@ -4,6 +4,7 @@ import { useRouter } from 'vue-router'
 import {
   isValidEmail,
   isMinLength,
+  isValidPassword,
   passwordsMatch,
   isNotEmpty
 } from '@/utils/form-validators'
@@ -57,8 +58,8 @@ function validateEmail() {
 }
 
 function validatePassword() {
-  if (!isMinLength(form.password, 8)) {
-    errors.password = 'La contraseña debe tener al menos 8 caracteres'
+  if (!isValidPassword(form.password)) {
+    errors.password = 'La contraseña debe tener al menos 8 caracteres y un número'
     return false
   }
   errors.password = ''
@@ -165,7 +166,7 @@ async function handleSubmit() {
         @blur="validatePassword"
       />
       <p id="password-hint" class="register-form__hint">
-        Mínimo 8 caracteres
+        Mínimo 8 caracteres y al menos un número
       </p>
       <span v-if="errors.password" class="register-form__field-error" role="alert">
         {{ errors.password }}
