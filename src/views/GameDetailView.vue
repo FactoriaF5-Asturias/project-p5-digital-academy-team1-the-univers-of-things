@@ -4,7 +4,8 @@
 import { ref, onMounted, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
-import { getGameById } from '@/services/games-api'
+//import { getGameById } from '@/services/games-api'
+import { useGamesStore } from '@/stores/games-store'
 
 import GameScreenshots from '@/components/game-detail/GameScreenshots.vue'
 import SimilarGames from '@/components/game-detail/SimilarGames.vue'
@@ -14,6 +15,7 @@ import MainLayout from '@/layouts/MainLayout.vue'
 
 const route = useRoute()
 const router = useRouter()
+const gamesStore = useGamesStore()
 
 const game = ref(null)
 const isLoading = ref(false)
@@ -25,7 +27,11 @@ async function fetchGame(id) {
   game.value = null
 
   try {
-    game.value = await getGameById(id)
+    await gamesStore.fetchGames() // Juan
+    const found = gamesStore.getGameById(id)
+    if (!found) throw new Error('Juego no encontrado')
+    game.value = found
+    //game.value = await getGameById(id)
   } catch {
     hasError.value = true
   } finally {

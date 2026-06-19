@@ -2,8 +2,9 @@
 <script setup>
 import { ref, computed, watch, onMounted } from 'vue'
 import AppPagination from '@/components/layout/AppPagination.vue'
-import { getGames } from '@/services/games-api.js'
-import { filterByText, filterByGenre, filterByPlatform, paginateGames } from '@/utils/catalog-utils.js'
+//import { getGames } from '@/services/games-api.js'
+import { useGamesStore } from '@/stores/games-store'
+import { filterByText, filterByGenre, paginateGames } from '@/utils/catalog-utils.js'
 
 const games = ref([])
 const isLoading = ref(false)
@@ -13,8 +14,10 @@ const selectedGenre = ref('')
 const selectedPlatform = ref('')
 const currentPage = ref(1)
 const gamesPerPage = 10
+const gamesStore = useGamesStore() //const Juan
 
 onMounted(async () => {
+    await gamesStore.fetchGames()  //await Juan
     isLoading.value = true
     try {
         games.value = await getGames()
@@ -34,9 +37,9 @@ const platforms = computed(() => {
 })
 
 const filteredGames = computed(() => {
-    const byText = filterByText(games.value, searchQuery.value)
-    const byGenre = filterByGenre(byText, selectedGenre.value)
-    return filterByPlatform(byGenre, selectedPlatform.value)
+    //const byText = filterByText(games.value, searchQuery.value)
+    const byText = filterByText(gamesStore.games, searchQuery.value)
+    return filterByGenre(byText, selectedGenre.value)
 })
 
 const totalPages = computed(() => Math.ceil(filteredGames.value.length / gamesPerPage))
@@ -88,13 +91,13 @@ function handlePageChange(page) {
                 </div>
             </form>
 
-            <div v-if="isLoading" class="catalog-home__loading">
-                Cargando juegos...
-            </div>
+            <div v-if="gamesStore.isLoading" class="catalog-home__loading">
+             Cargando juegos...
+             </div>
 
-            <div v-else-if="error" class="catalog-home__error">
-                {{ error }}
-            </div>
+            <div v-else-if="gamesStore.error" class="catalog-home__error">
+             {{ gamesStore.error }}
+             </div>
 
             <template v-else>
                 <ul v-if="paginatedGames.length > 0" class="catalog-home__grid">
