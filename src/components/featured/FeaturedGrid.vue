@@ -20,3 +20,11 @@ const featuredList = computed(() => featuredStore.featuredList)
     />
   </div>
 </template>
+
+<style lang="scss" scoped>
+
+.featured-grid{
+  margin-top: 5rem;
+}
+
+</style>
