@@ -38,3 +38,15 @@ export function passwordsMatch(password, confirmation) {
 export function isNotEmpty(value) {
   return typeof value === 'string' && value.trim().length > 0
 }
+
+/**
+ * Valida que una contraseña cumple los requisitos mínimos de seguridad:
+ * al menos 8 caracteres y al menos un número.
+ * @param {string} password
+ * @returns {boolean}
+ */
+export function isValidPassword(password) {
+  const hasMinLength = typeof password === 'string' && password.length >= 8
+  const hasNumber = /\d/.test(password)
+  return hasMinLength && hasNumber
+}
