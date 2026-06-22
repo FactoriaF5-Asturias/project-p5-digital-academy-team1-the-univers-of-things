@@ -39,7 +39,8 @@
                     </svg>
                 </a>
 
-                <a href="#" class="footer__social-link" aria-label="Visitanos en Steam" rel="noopener noreferrer">
+                <a href="https://store.steampowered.com/?l=spanish" 
+                target="_blank" class="footer__social-link" aria-label="Visitanos en Steam" rel="noopener noreferrer">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"
                         focusable="false">
                         <path
