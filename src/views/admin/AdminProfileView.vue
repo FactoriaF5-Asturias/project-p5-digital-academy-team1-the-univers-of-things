@@ -38,13 +38,17 @@ const avatarOptions = Array.from({ length: 8 }, (_, i) => ({ id: i + 1 }))
         <!-- Columna derecha: contraseña -->
         <div class="admin-profile__right">
           <span class="admin-profile__label">Cambiar contraseña</span>
+          <label for="new-password" class="visually-hidden">Nueva contraseña</label>
           <input
+            id="new-password"
             v-model="newPassword"
             type="password"
             placeholder="Nueva contraseña"
             class="admin-profile__input"
           />
+          <label for="confirm-password" class="visually-hidden">Confirmar contraseña</label>
           <input
+            id="confirm-password"
             v-model="confirmPassword"
             type="password"
             placeholder="Confirmar contraseña"
