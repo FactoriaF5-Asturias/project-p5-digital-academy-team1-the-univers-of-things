@@ -89,6 +89,7 @@ function handleKeydown(event) {
     <!-- Lightbox -->
     <div
       v-if="activeIndex !== null"
+      ref="lightboxRef"
       class="game-screenshots__lightbox"
       role="dialog"
       aria-modal="true"
