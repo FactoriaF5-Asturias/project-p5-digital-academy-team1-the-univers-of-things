@@ -3,6 +3,7 @@
 <script setup>
 import DashboardHeader from '@/components/layout/DashboardHeader.vue'
 import DashboardSidebar from '@/components/layout/DashboardSidebar.vue'
+import AppFooter from '@/components/layout/AppFooter.vue'
 </script>
 
 <template>
@@ -14,6 +15,7 @@ import DashboardSidebar from '@/components/layout/DashboardSidebar.vue'
                 <slot />
             </main>
         </div>
+        <AppFooter />
     </div>
 </template>
 
