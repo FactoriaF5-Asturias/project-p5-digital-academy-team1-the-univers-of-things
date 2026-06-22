@@ -16,12 +16,16 @@ export async function getUserProfile(uid) {
     if (!snapshot.exists()) {
         return null
     }
-return snapshot.data()
+    return snapshot.data()
 
 }
 
 export async function updateUserFavorites(uid, favorites) {
-  const userRef = doc(db, 'users', uid)
-  await updateDoc(userRef, { fav: favorites })
+    const userRef = doc(db, 'users', uid)
+    await updateDoc(userRef, { fav: favorites })
 }
 
+export async function updateUserAvatar(uid, avatarUrl) {
+    const userRef = doc(db, 'users', uid)
+    await updateDoc(userRef, { profileImg: avatarUrl })
+}
