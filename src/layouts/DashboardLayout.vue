@@ -1,13 +1,14 @@
 <!-- Layout privado: sidebar + header dashboard + slot + footer privado -->
-
 <script setup>
 import DashboardHeader from '@/components/layout/DashboardHeader.vue'
 import DashboardSidebar from '@/components/layout/DashboardSidebar.vue'
 import AppFooter from '@/components/layout/AppFooter.vue'
+import AppAurora from '@/components/layout/AppAurora.vue'
 </script>
 
 <template>
     <div class="dashboard-layout">
+        <AppAurora />
         <DashboardHeader />
         <div class="dashboard-layout__body">
             <DashboardSidebar />
