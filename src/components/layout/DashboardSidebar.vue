@@ -17,8 +17,11 @@ async function handleLogout() {
     <aside class="dashboard-sidebar" aria-label="Navegacion del dashboard de usuario">
 
         <div class="dashboard-sidebar__profile">
-            <img :src="auth.profile?.profileImg || avatar1" :alt="`Avatar de ${auth.profile?.username}`"
-                class="dashboard-sidebar__avatar" />
+            <div class="dashboard-sidebar__avatar-bg"
+                :style="{ background: auth.profile?.profileBg || 'linear-gradient(135deg, #7c3aed, #22d3ee)' }">
+                <img v-if="auth.profile?.profileImg" :src="auth.profile.profileImg"
+                    :alt="`Avatar de ${auth.profile?.username}`" class="dashboard-sidebar__avatar" />
+            </div>
             <p class="dashboard-sidebar__username">
                 {{ auth.profile?.username || auth.user?.email }}
             </p>
@@ -71,9 +74,19 @@ async function handleLogout() {
     display: flex;
     flex-direction: column;
     padding: 1.5rem 0;
-    position: relative;
+    position: sticky;
+    top: 0;
+    height: calc(100vh - 56px);
+    overflow-y: auto;
     z-index: 10;
-    min-height: 100%;
+
+    @media (min-width: $bp-tablet) {
+        height: calc(100vh - 64px);
+    }
+
+    @media (min-width: $bp-desktop) {
+        height: calc(100vh - 72px);
+    }
 
     &__profile {
         padding: 0 1.5rem 1.2rem;
@@ -82,14 +95,23 @@ async function handleLogout() {
         text-align: center;
     }
 
-    &__avatar {
+    &__avatar-bg {
         width: 56px;
         height: 56px;
         border-radius: 50%;
         margin: 0 auto 8px;
-        display: block;
-        object-fit: cover;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         border: 2px solid var(--color-border-purple);
+        overflow: hidden;
+    }
+
+    &__avatar {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
     }
 
     &__username {
