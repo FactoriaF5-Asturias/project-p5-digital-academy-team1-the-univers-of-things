@@ -88,6 +88,7 @@ async function handleLogout() {
 
     &__logo {
         display: flex;
+        flex-direction: row;
         align-items: center;
         gap: 8px;
         text-decoration: none;
@@ -111,6 +112,32 @@ async function handleLogout() {
         color: var(--color-primary);
         letter-spacing: 0.08em;
         text-transform: uppercase;
+    }
+
+    &__links {
+        display: none;
+        list-style: none;
+        align-items: center;
+        gap: 2rem;
+
+        @media (min-width: $bp-tablet) {
+            display: flex;
+        }
+    }
+
+    &__link {
+        font-family: $font-mono;
+        font-size: 11px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--color-text-muted);
+        text-decoration: none;
+        transition: color var(--transition);
+
+        &:hover,
+        &.router-link-active {
+            color: var(--color-text);
+        }
     }
 
     &__user {
