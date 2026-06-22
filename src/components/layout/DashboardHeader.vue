@@ -136,7 +136,7 @@ async function handleLogout() {
 
         &:hover,
         &.router-link-active {
-            color: var(--color-text);
+            color: var(--color-secondary);
         }
     }
 
