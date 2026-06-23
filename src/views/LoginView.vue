@@ -31,12 +31,6 @@
 import MainLayout from '@/layouts/MainLayout.vue'
 import LoginForm from '@/components/auth/LoginForm.vue'
 
-import { useRouter } from 'vue-router'
-const router = useRouter()
-
-async function handleAdminLogin() {
-  await router.push('/admin')
-}
 </script>
 
 <style scoped>
