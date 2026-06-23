@@ -39,6 +39,14 @@ async function handleLogout() {
                     <RouterLink to="/featured">Destacados</RouterLink>
                 </li>
             </ul>
+            <ul v-show="menuOpen" class="header__mobile-menu" role="list">
+            <li><RouterLink to="/" @click="menuOpen = false">Inicio</RouterLink>
+            </li>
+            <li><RouterLink to="/catalog" @click="menuOpen = false">Catálogo</RouterLink>
+            </li>
+            <li><RouterLink to="/featured" @click="menuOpen = false">Destacados</RouterLink>
+            </li>
+             </ul>
 
             <ul class="header__actions" role="list">
                 <template v-if="auth.user">
