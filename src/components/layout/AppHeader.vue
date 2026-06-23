@@ -78,7 +78,8 @@ async function handleLogout() {
             <button
                 class="header__hamburger"
                 type="button"
-                aria-label="Abrir menú de navegación"
+                :aria-expanded="menuOpen"
+                :aria-label="menuOpen ? 'Cerrar menú de navegación' : 'Abrir menú de navegación'"
                 @click="toggleMenu"
             >
                 <span class="header__hamburger-line"></span>
