@@ -2,9 +2,15 @@
 <script setup>
 import { useAuthStore } from '@/stores/auth.js'
 import { useRouter } from 'vue-router'
+import { ref } from 'vue'
 
 const auth = useAuthStore()
 const router = useRouter()
+
+const menuOpen = ref(false)
+function toggleMenu() {
+    menuOpen.value = !menuOpen.value
+}
 
 async function handleLogout() {
     await auth.logout()
