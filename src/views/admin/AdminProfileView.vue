@@ -242,12 +242,15 @@ async function handleChangePassword() {
         <!-- Columna derecha: contraseña -->
         <div class="admin-profile__right">
           <span class="admin-profile__label">Cambiar contraseña</span>
+          <label for="current-password" class="visually-hidden">Contraseña actual</label>
           <input
+            id="current-password"
             v-model="currentPassword"
             type="password"
             placeholder="Contraseña actual"
             class="admin-profile__input"
           />
+          <label for="new-password" class="visually-hidden">Nueva contraseña</label>
           <input
             id="new-password"
             v-model="newPassword"
@@ -255,6 +258,7 @@ async function handleChangePassword() {
             placeholder="Nueva contraseña"
             class="admin-profile__input"
           />
+          <label for="confirm-password" class="visually-hidden">Confirmar contraseña</label>
           <input
             id="confirm-password"
             v-model="confirmPassword"
