@@ -39,4 +39,16 @@ describe('AdminProfileView', () => {
 
     expect(authStoreMock.updateBg).toHaveBeenCalledTimes(1)
   })
+
+  it('rechaza el cambio de contraseña si la nueva es igual a la actual', async () => {
+    const wrapper = mount(AdminProfileView)
+
+    await wrapper.find('.admin-profile__input').setValue('actual123')
+    await wrapper.find('#new-password').setValue('actual123')
+    await wrapper.find('#confirm-password').setValue('actual123')
+    await wrapper.find('.admin-profile__btn-update').trigger('click')
+
+    expect(wrapper.text()).toContain('La nueva contraseña no puede ser igual a la actual')
+    expect(authStoreMock.changePassword).not.toHaveBeenCalled()
+  })
 })
