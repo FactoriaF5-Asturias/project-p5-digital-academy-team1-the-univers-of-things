@@ -92,4 +92,15 @@ describe('ProfileView', () => {
 
     expect(wrapper.text()).toContain('Contraseña actual incorrecta')
   })
+
+  it('muestra error si updateAvatar falla', async () => {
+    authStoreMock.updateAvatar.mockRejectedValue(new Error('storage/error'))
+    const wrapper = mount(ProfileView)
+
+    await wrapper.find('.profile-view__avatar-option').trigger('click')
+    await wrapper.findAll('.profile-view__save-btn')[0].trigger('click')
+    await Promise.resolve()
+
+    expect(wrapper.text()).toContain('Error al guardar el avatar')
+  })
 })
