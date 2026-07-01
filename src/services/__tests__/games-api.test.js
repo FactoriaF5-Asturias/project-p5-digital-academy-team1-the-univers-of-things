@@ -35,4 +35,15 @@ describe('games-api', () => {
 
     await expect(getGames()).rejects.toThrow('Network error')
   })
+
+  it('getGameById devuelve el juego correcto por id', async () => {
+    fetch.mockResolvedValue({
+      ok: true,
+      json: () => Promise.resolve(mockGames),
+    })
+
+    const result = await getGameById(2)
+
+    expect(result).toEqual({ id: 2, title: 'Neon Odyssey' })
+  })
 })
