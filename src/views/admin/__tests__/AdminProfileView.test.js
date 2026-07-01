@@ -6,6 +6,7 @@ vi.mock('@/api/user.service.js', () => ({ uploadAvatarToStorage: vi.fn() }))
 vi.mock('@/stores/auth.js', () => ({ useAuthStore: vi.fn() }))
 
 import { useAuthStore } from '@/stores/auth.js'
+import { uploadAvatarToStorage } from '@/api/user.service.js'
 import AdminProfileView from '../AdminProfileView.vue'
 
 describe('AdminProfileView', () => {
@@ -14,7 +15,7 @@ describe('AdminProfileView', () => {
   beforeEach(() => {
     authStoreMock = {
       profile: { username: 'AdminRoot', profileImg: null, profileBg: null },
-      user: { email: 'admin@admin.com' },
+      user: { uid: 'admin-1', email: 'admin@admin.com' },
       updateAvatar: vi.fn(() => Promise.resolve()),
       updateBg: vi.fn(() => Promise.resolve()),
       changePassword: vi.fn(() => Promise.resolve()),
@@ -124,5 +125,17 @@ describe('AdminProfileView', () => {
     await Promise.resolve()
 
     expect(wrapper.text()).toContain('Error al guardar el fondo')
+  })
+
+  it('rechaza la subida de un archivo que no es imagen', async () => {
+    const wrapper = mount(AdminProfileView)
+    const input = wrapper.find('.admin-profile__file-input')
+    const file = new File(['contenido'], 'documento.pdf', { type: 'application/pdf' })
+    Object.defineProperty(input.element, 'files', { value: [file] })
+
+    await input.trigger('change')
+
+    expect(wrapper.text()).toContain('Solo se permiten imágenes')
+    expect(uploadAvatarToStorage).not.toHaveBeenCalled()
   })
 })
