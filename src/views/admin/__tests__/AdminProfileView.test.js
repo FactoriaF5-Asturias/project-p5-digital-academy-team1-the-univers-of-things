@@ -103,4 +103,15 @@ describe('AdminProfileView', () => {
 
     expect(wrapper.text()).toContain('Contraseña actual incorrecta')
   })
+
+  it('muestra error si updateAvatar falla', async () => {
+    authStoreMock.updateAvatar.mockRejectedValue(new Error('storage/error'))
+    const wrapper = mount(AdminProfileView)
+
+    await wrapper.find('.admin-profile__avatar-option').trigger('click')
+    await wrapper.find('.admin-profile__btn-sm').trigger('click')
+    await Promise.resolve()
+
+    expect(wrapper.text()).toContain('Error al guardar el avatar')
+  })
 })
