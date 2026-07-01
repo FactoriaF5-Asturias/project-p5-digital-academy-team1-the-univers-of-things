@@ -114,4 +114,16 @@ describe('ProfileView', () => {
 
     expect(wrapper.text()).toContain('Error al guardar el fondo')
   })
+
+  it('rechaza la subida de un archivo que no es imagen', async () => {
+    const wrapper = mount(ProfileView)
+    const input = wrapper.find('.profile-view__file-input')
+    const file = new File(['contenido'], 'documento.pdf', { type: 'application/pdf' })
+    Object.defineProperty(input.element, 'files', { value: [file] })
+
+    await input.trigger('change')
+
+    expect(wrapper.text()).toContain('Solo se permiten imágenes')
+    expect(uploadAvatarToStorage).not.toHaveBeenCalled()
+  })
 })
