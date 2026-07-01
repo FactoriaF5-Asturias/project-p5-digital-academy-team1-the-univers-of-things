@@ -44,4 +44,12 @@ describe('UserManagementView', () => {
 
     expect(adminStoreMock.toggleUserAccess).toHaveBeenCalledWith('user-1', 'active')
   })
+
+  it('muestra mensaje de "sin resultados" si la búsqueda no coincide', async () => {
+    const wrapper = mount(UserManagementView)
+
+    await wrapper.find('#user-search').setValue('nadie')
+
+    expect(wrapper.text()).toContain('No se encontraron resultados')
+  })
 })
