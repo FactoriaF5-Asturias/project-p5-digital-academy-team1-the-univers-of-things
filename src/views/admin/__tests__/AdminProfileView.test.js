@@ -138,4 +138,20 @@ describe('AdminProfileView', () => {
     expect(wrapper.text()).toContain('Solo se permiten imágenes')
     expect(uploadAvatarToStorage).not.toHaveBeenCalled()
   })
+
+  it('sube una imagen válida y actualiza el avatar', async () => {
+    uploadAvatarToStorage.mockResolvedValue('https://storage.test/avatar.png')
+    const wrapper = mount(AdminProfileView)
+    const input = wrapper.find('.admin-profile__file-input')
+    const file = new File(['contenido'], 'foto.png', { type: 'image/png' })
+    Object.defineProperty(input.element, 'files', { value: [file] })
+
+    await input.trigger('change')
+    await Promise.resolve()
+    await Promise.resolve()
+
+    expect(uploadAvatarToStorage).toHaveBeenCalledWith('admin-1', file)
+    expect(authStoreMock.updateAvatar).toHaveBeenCalledWith('https://storage.test/avatar.png')
+    expect(wrapper.text()).toContain('✓ Avatar guardado')
+  })
 })
