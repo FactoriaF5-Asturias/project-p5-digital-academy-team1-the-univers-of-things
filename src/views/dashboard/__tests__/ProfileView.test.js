@@ -142,4 +142,13 @@ describe('ProfileView', () => {
     expect(authStoreMock.updateAvatar).toHaveBeenCalledWith('https://storage.test/avatar.png')
     expect(wrapper.text()).toContain('✓ Avatar guardado')
   })
+
+  it('abre el selector de archivos al pulsar "Subir desde Firebase Storage"', async () => {
+    const wrapper = mount(ProfileView)
+    const clickSpy = vi.spyOn(wrapper.find('.profile-view__file-input').element, 'click')
+
+    await wrapper.find('.profile-view__firebase-btn').trigger('click')
+
+    expect(clickSpy).toHaveBeenCalledTimes(1)
+  })
 })
