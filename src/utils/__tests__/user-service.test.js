@@ -52,3 +52,24 @@ describe('user.service', () => {
       })
     })
   })
+  // ── getUserProfile ──
+  describe('getUserProfile', () => {
+    it('devuelve los datos del usuario si existe en Firestore', async () => {
+      getDoc.mockResolvedValue({
+        exists: () => true,
+        data: () => ({ uid: 'uid-123', username: 'TestUser' })
+      })
+
+      const result = await getUserProfile('uid-123')
+      expect(result).toEqual({ uid: 'uid-123', username: 'TestUser' })
+    })
+
+    it('devuelve null si el usuario no existe en Firestore', async () => {
+      getDoc.mockResolvedValue({
+        exists: () => false
+      })
+
+      const result = await getUserProfile('uid-inexistente')
+      expect(result).toBeNull()
+    })
+  })
