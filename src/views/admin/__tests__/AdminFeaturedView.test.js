@@ -49,4 +49,15 @@ describe('AdminFeaturedView', () => {
       expect.objectContaining({ id: 'a', title: 'Quantum Strike' })
     )
   })
+
+  it('muestra la tarjeta del juego del mes y permite quitarlo', async () => {
+    featuredStoreMock.gameOfTheMonth = { id: 'a', title: 'Quantum Strike', thumbnail: 'a.jpg' }
+    const wrapper = mount(AdminFeaturedView)
+
+    expect(wrapper.text()).toContain('Quantum Strike')
+
+    await wrapper.find('.admin-featured__active-card .admin-featured__remove').trigger('click')
+
+    expect(featuredStoreMock.selectMonthly).toHaveBeenCalledWith(null)
+  })
 })
