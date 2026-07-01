@@ -89,4 +89,18 @@ describe('AdminProfileView', () => {
     expect(wrapper.text()).toContain('Contraseña actualizada correctamente')
     expect(wrapper.find('.admin-profile__input').element.value).toBe('')
   })
+
+  it('muestra error si el store rechaza el cambio de contraseña', async () => {
+    authStoreMock.changePassword.mockRejectedValue(new Error('auth/wrong-password'))
+    const wrapper = mount(AdminProfileView)
+
+    await wrapper.find('.admin-profile__input').setValue('malaClave1')
+    await wrapper.find('#new-password').setValue('nueva1234')
+    await wrapper.find('#confirm-password').setValue('nueva1234')
+    await wrapper.find('.admin-profile__btn-update').trigger('click')
+    await Promise.resolve()
+    await Promise.resolve()
+
+    expect(wrapper.text()).toContain('Contraseña actual incorrecta')
+  })
 })
