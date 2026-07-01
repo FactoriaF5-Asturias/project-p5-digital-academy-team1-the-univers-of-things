@@ -52,4 +52,16 @@ describe('ProfileView', () => {
     expect(wrapper.text()).toContain('Las contraseñas no coinciden')
     expect(authStoreMock.changePassword).not.toHaveBeenCalled()
   })
+
+  it('rechaza el cambio de contraseña si la nueva no cumple el formato mínimo', async () => {
+    const wrapper = mount(ProfileView)
+
+    await wrapper.find('#current-password').setValue('actual123')
+    await wrapper.find('#new-password').setValue('corta')
+    await wrapper.find('#confirm-password').setValue('corta')
+    await wrapper.find('.profile-view__submit').trigger('click')
+
+    expect(wrapper.text()).toContain('al menos 8 caracteres y un número')
+    expect(authStoreMock.changePassword).not.toHaveBeenCalled()
+  })
 })
