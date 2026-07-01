@@ -114,4 +114,15 @@ describe('AdminProfileView', () => {
 
     expect(wrapper.text()).toContain('Error al guardar el avatar')
   })
+
+  it('muestra error si updateBg falla', async () => {
+    authStoreMock.updateBg.mockRejectedValue(new Error('storage/error'))
+    const wrapper = mount(AdminProfileView)
+
+    await wrapper.find('.admin-profile__bg-option').trigger('click')
+    await wrapper.findAll('.admin-profile__btn-sm')[1].trigger('click')
+    await Promise.resolve()
+
+    expect(wrapper.text()).toContain('Error al guardar el fondo')
+  })
 })
