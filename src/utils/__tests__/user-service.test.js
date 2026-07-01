@@ -82,3 +82,13 @@ describe('user.service', () => {
       expect(updateDoc).toHaveBeenCalledWith('mockRef', { fav: favorites })
     })
   })
+  // ── updateUserAvatar ──
+  describe('updateUserAvatar', () => {
+    it('llama a updateDoc con la URL del avatar correcta', async () => {
+      await updateUserAvatar('uid-123', 'https://example.com/avatar.jpg')
+
+      expect(updateDoc).toHaveBeenCalledWith('mockRef', {
+        profileImg: 'https://example.com/avatar.jpg'
+      })
+    })
+  })
