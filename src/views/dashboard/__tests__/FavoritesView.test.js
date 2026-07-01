@@ -116,4 +116,13 @@ describe('FavoritesView', () => {
     expect(wrapper.find('.edit-form-stub').exists()).toBe(false)
     expect(wrapper.find('.favorite-card-stub').exists()).toBe(true)
   })
+
+  it('valora un favorito al emitir rate desde la tarjeta', async () => {
+    favoritesStoreMock.favoritesList = [{ id: 'g1', title: 'Quantum Strike' }]
+    const wrapper = mount(FavoritesView)
+
+    await wrapper.find('.stub-rate').trigger('click')
+
+    expect(favoritesStoreMock.rateFavorite).toHaveBeenCalledWith('g1', 5)
+  })
 })
