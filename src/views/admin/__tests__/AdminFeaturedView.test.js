@@ -36,4 +36,17 @@ describe('AdminFeaturedView', () => {
     expect(wrapper.text()).toContain('Quantum Strike')
     expect(wrapper.text()).not.toContain('Neon Odyssey')
   })
+
+  it('selecciona un juego del mes al hacer click en una sugerencia', async () => {
+    const wrapper = mount(AdminFeaturedView)
+
+    const input = wrapper.find('#monthly-search')
+    await input.trigger('focus')
+    await input.setValue('quantum')
+    await wrapper.find('.admin-featured__suggestion').trigger('click')
+
+    expect(featuredStoreMock.selectMonthly).toHaveBeenCalledWith(
+      expect.objectContaining({ id: 'a', title: 'Quantum Strike' })
+    )
+  })
 })
