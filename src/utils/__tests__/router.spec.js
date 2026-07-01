@@ -6,6 +6,7 @@ vi.mock('@/stores/auth', () => ({ useAuthStore: vi.fn() }))
 import { useAuthStore } from '@/stores/auth'
 import router from '@/router/index.js'
 import { createPinia, setActivePinia } from 'pinia'
+import { reactive } from 'vue'
 
 describe('Router Guards', () => {
 
@@ -66,5 +67,26 @@ describe('Router Guards', () => {
         })
         await router.push('/admin/users')
         expect(router.currentRoute.value.path).toBe('/admin/users')
+    })
+
+    test('espera a que auth.loading termine antes de decidir', async () => {
+        const authState = reactive({
+            user: { uid: '123' },
+            isAdmin: false,
+            isCustomer: true,
+            loading: true
+        })
+        useAuthStore.mockReturnValue(authState)
+
+        const navigation = router.push('/dashboard/favorites')
+        await Promise.resolve()
+        await Promise.resolve()
+
+        expect(router.currentRoute.value.path).not.toBe('/dashboard/favorites')
+
+        authState.loading = false
+        await navigation
+
+        expect(router.currentRoute.value.path).toBe('/dashboard/favorites')
     })
     })
