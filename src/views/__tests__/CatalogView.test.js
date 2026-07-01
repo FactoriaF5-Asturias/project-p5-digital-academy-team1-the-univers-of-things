@@ -70,4 +70,14 @@ describe('CatalogView', () => {
 
     expect(gamesStoreMock.fetchGames).toHaveBeenCalledTimes(1)
   })
+
+  it('filtra los juegos por el texto de búsqueda', async () => {
+    const wrapper = mount(CatalogView)
+
+    await wrapper.find('#game-search').setValue('Game 2')
+
+    expect(wrapper.findAll('.item-card-stub')).toHaveLength(1)
+    expect(wrapper.text()).toContain('Game 2')
+    expect(wrapper.text()).not.toContain('Game 1')
+  })
 })
