@@ -92,4 +92,16 @@ describe('FavoritesView', () => {
     expect(wrapper.find('.edit-form-stub').exists()).toBe(true)
     expect(wrapper.find('.favorite-card-stub').exists()).toBe(false)
   })
+
+  it('guarda la edición y vuelve a mostrar la tarjeta', async () => {
+    favoritesStoreMock.favoritesList = [{ id: 'g1', title: 'Quantum Strike' }]
+    const wrapper = mount(FavoritesView)
+
+    await wrapper.find('.stub-edit').trigger('click')
+    await wrapper.find('.stub-save').trigger('click')
+
+    expect(favoritesStoreMock.updateFavorite).toHaveBeenCalledWith('g1', { title: 'Updated' })
+    expect(wrapper.find('.edit-form-stub').exists()).toBe(false)
+    expect(wrapper.find('.favorite-card-stub').exists()).toBe(true)
+  })
 })
