@@ -103,4 +103,15 @@ describe('ProfileView', () => {
 
     expect(wrapper.text()).toContain('Error al guardar el avatar')
   })
+
+  it('muestra error si updateBg falla', async () => {
+    authStoreMock.updateBg.mockRejectedValue(new Error('storage/error'))
+    const wrapper = mount(ProfileView)
+
+    await wrapper.find('.profile-view__bg-option').trigger('click')
+    await wrapper.findAll('.profile-view__save-btn')[1].trigger('click')
+    await Promise.resolve()
+
+    expect(wrapper.text()).toContain('Error al guardar el fondo')
+  })
 })
