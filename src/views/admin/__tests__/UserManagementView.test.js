@@ -27,4 +27,13 @@ describe('UserManagementView', () => {
 
     expect(adminStoreMock.fetchAllUsers).toHaveBeenCalledTimes(1)
   })
+
+  it('filtra usuarios por texto de búsqueda', async () => {
+    const wrapper = mount(UserManagementView)
+
+    await wrapper.find('#user-search').setValue('alice')
+
+    expect(wrapper.text()).toContain('Alice')
+    expect(wrapper.text()).not.toContain('Bob')
+  })
 })
