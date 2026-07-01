@@ -73,4 +73,13 @@ describe('FavoritesView', () => {
     expect(wrapper.findAll('.favorite-card-stub')).toHaveLength(2)
     expect(wrapper.text()).toContain('Quantum Strike')
   })
+
+  it('quita un favorito al emitir remove desde la tarjeta', async () => {
+    favoritesStoreMock.favoritesList = [{ id: 'g1', title: 'Quantum Strike' }]
+    const wrapper = mount(FavoritesView)
+
+    await wrapper.find('.stub-remove').trigger('click')
+
+    expect(favoritesStoreMock.removeFromFavorites).toHaveBeenCalledWith('g1')
+  })
 })
