@@ -5,26 +5,7 @@ import { useAuthStore } from "@/stores/auth.js";
 import { uploadAvatarToStorage } from "@/api/user.service.js";
 import { passwordsMatch, isValidPassword } from "@/utils/form-validators";
 import { ref, watch } from 'vue'
-
-import avatar1 from "@/assets/avatars/avatar-1.svg";
-import avatar2 from "@/assets/avatars/avatar-2.svg";
-import avatar3 from "@/assets/avatars/avatar-3.svg";
-import avatar4 from "@/assets/avatars/avatar-4.svg";
-import avatar5 from "@/assets/avatars/avatar-5.svg";
-import avatar6 from "@/assets/avatars/avatar-6.svg";
-import avatar7 from "@/assets/avatars/avatar-7.svg";
-import avatar8 from "@/assets/avatars/avatar-8.svg";
-
-const avatars = [
-  { id: 1, src: avatar1, alt: "Avatar 1" },
-  { id: 2, src: avatar2, alt: "Avatar 2" },
-  { id: 3, src: avatar3, alt: "Avatar 3" },
-  { id: 4, src: avatar4, alt: "Avatar 4" },
-  { id: 5, src: avatar5, alt: "Avatar 5" },
-  { id: 6, src: avatar6, alt: "Avatar 6" },
-  { id: 7, src: avatar7, alt: "Avatar 7" },
-  { id: 8, src: avatar8, alt: "Avatar 8" },
-];
+import { avatars, presetAvatarRef, resolveAvatarSrc } from "@/constants/avatars.js";
 
 const backgrounds = [
   { id: 1, value: "linear-gradient(135deg, #7c3aed, #22d3ee)" },
@@ -39,7 +20,7 @@ const backgrounds = [
 const auth = useAuthStore();
 const selectedAvatar = ref(null);
 const selectedBg = ref(null);
-const previewImg = ref(auth.profile?.profileImg || null);
+const previewImg = ref(resolveAvatarSrc(auth.profile?.profileImg) || null);
 const previewBg = ref(
   auth.profile?.profileBg || "linear-gradient(135deg, #7c3aed, #22d3ee)",
 );
@@ -55,7 +36,7 @@ watch(
 watch(
   () => auth.profile?.profileImg,
   (newImg) => {
-    if (newImg && !selectedAvatar.value) previewImg.value = newImg;
+    if (newImg && !selectedAvatar.value) previewImg.value = resolveAvatarSrc(newImg);
   },
   { immediate: true }
 );
@@ -84,7 +65,7 @@ async function handleSaveAvatar() {
   if (!selectedAvatar.value) return;
   const avatar = avatars.find((a) => a.id === selectedAvatar.value);
   try {
-    await auth.updateAvatar(avatar.src);
+    await auth.updateAvatar(presetAvatarRef(avatar.id));
     avatarFeedback.value = "✓ Avatar guardado";
     setTimeout(() => {
       avatarFeedback.value = "";
