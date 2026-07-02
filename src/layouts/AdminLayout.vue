@@ -4,6 +4,7 @@ import { ref } from 'vue'
 import { RouterLink, useRouter } from 'vue-router'
 import AppAurora from '@/components/layout/AppAurora.vue'
 import { useAuthStore } from '@/stores/auth.js'
+import { resolveAvatarSrc } from '@/constants/avatars.js'
 
 const auth = useAuthStore()
 const router = useRouter()
@@ -44,7 +45,7 @@ async function handleLogout() {
 
       <div class="dashboard-sidebar__profile">
         <div class="dashboard-sidebar__avatar" :style="{ background: auth.profile?.profileBg }">
-          <img v-if="auth.profile?.profileImg" :src="auth.profile.profileImg" alt="Avatar" />
+          <img v-if="auth.profile?.profileImg" :src="resolveAvatarSrc(auth.profile.profileImg)" alt="Avatar" />
         </div>
         <p class="dashboard-sidebar__name">{{ auth.user?.email }}</p>
         <span class="dashboard-sidebar__badge">ADMIN</span>

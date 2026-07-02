@@ -3,6 +3,7 @@
 import { ref } from 'vue'
 import { useAuthStore } from '@/stores/auth.js'
 import { useRouter } from 'vue-router'
+import { resolveAvatarSrc } from '@/constants/avatars.js'
 const auth = useAuthStore()
 const router = useRouter()
 
@@ -23,7 +24,7 @@ async function handleLogout() {
         <div class="dashboard-sidebar__profile">
             <div class="dashboard-sidebar__avatar-bg"
                 :style="{ background: auth.profile?.profileBg || 'linear-gradient(135deg, #7c3aed, #22d3ee)' }">
-                <img v-if="auth.profile?.profileImg" :src="auth.profile.profileImg"
+                <img v-if="auth.profile?.profileImg" :src="resolveAvatarSrc(auth.profile.profileImg)"
                     :alt="`Avatar de ${auth.profile?.username}`" class="dashboard-sidebar__avatar" />
             </div>
             <p class="dashboard-sidebar__username">
